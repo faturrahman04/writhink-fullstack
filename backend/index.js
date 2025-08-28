@@ -25,7 +25,7 @@ app.post('/register', async (req, res) => {
   const { username, password, confirmPassword } = req.body;
   if (username === "") return res.status(401).json({message: "Username tidak boleh kosong"}); 
   if (password === "") return res.status(401).json({message: "Password wajib diisi!"});
-  if (confirmPassword === "" || confirmPassword !== password) return res.status(400).json({message: "Konfirmasi password tidak sesuai"});
+  if (confirmPassword === "" || confirmPassword !== password) return res.status(401).json({message: "Konfirmasi password tidak sesuai"});
   const hash = await bcrypt.hash(password, 10);
 
   db.query("INSERT INTO users (username, password) VALUES (?, ?)", 
@@ -37,17 +37,18 @@ app.post('/register', async (req, res) => {
   );
 });
 
-app.post('/login', (req, res) => {
+
+app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  db.query("SELECT * FROM users WHERE `username` = ?", [username], async (err, result) => {
-    if (err || result.length === 0) return res.status(401).json({message: 'Username tidak ditemukan'});
+  db.query('SELECT * FROM `users` WHERE `username` = ?', [username], async (err, result) => {
+    if (err || result.length === 0) return res.status(401).json({success: false,message: 'Username tidak ditemukan'});
 
     const user = result[0];
     const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) return res.status(401).json({message: 'Username atau password salah!'});
+    if (!passwordMatch) return res.status(401).json({success: false, message: 'Username atau password salah!'});
 
     const access_token = jwt.sign({id: user.id, username: user.username}, JWT_KEY, {expiresIn: '1h'});
-    res.json({ access_token });
+    return res.json({success: true, token: access_token });
   });
 });
 
@@ -64,8 +65,8 @@ function authenticate(req, res, next) {
   });
 }
 
-app.get('/', authenticate, (req, res) => {
+app.get('/todos', authenticate, (req, res) => {
 
-})
+});
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));

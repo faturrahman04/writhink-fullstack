@@ -3,7 +3,7 @@ import Button from "../components/Button"
 import InputForm from "../components/InputForm"
 
 const Registrasi = () => {
-  const [formData, setFormData] = useOutletContext();
+  const { formDataRegistrasi, setFormDataRegistrasi } = useOutletContext();
 
   return (
     <>
@@ -14,18 +14,18 @@ const Registrasi = () => {
       name="username" 
       placeholder="Masukkan Username" 
       type="text" 
-      value={formData.username}
-      onChange={(e) => setFormData({...formData, username: e.target.value})}/>
+      value={formDataRegistrasi.username}
+      onChange={(e) => setFormDataRegistrasi({...formDataRegistrasi, username: e.target.value})}/>
       
-      <InputForm 
+      <InputForm
       htmlFor="password" 
       id="password" 
       labelText="Password" 
       name="password" 
       placeholder="Masukkan Password" 
       type="password"
-      value={formData.password}
-      onChange={(e) => setFormData({...formData, password: e.target.value})} />
+      value={formDataRegistrasi.password}
+      onChange={(e) => setFormDataRegistrasi({...formDataRegistrasi, password: e.target.value})} />
 
       <InputForm
       htmlFor="confirmPassword" 
@@ -34,8 +34,8 @@ const Registrasi = () => {
       name="confirmPassword" 
       placeholder="Konfirmasi Password" 
       type="password"
-      value={formData.confirmPassword}
-      onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})} />
+      value={formDataRegistrasi.confirmPassword}
+      onChange={(e) => setFormDataRegistrasi({...formDataRegistrasi, confirmPassword: e.target.value})} />
       <Button children="Daftar" variant="text-white bg-blue-500 mt-4" />
     </>
   )
