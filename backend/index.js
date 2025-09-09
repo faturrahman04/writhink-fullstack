@@ -66,7 +66,8 @@ function authenticate(req, res, next) {
 }
 
 app.get('/todos', authenticate, (req, res) => {
-
+  const user = req;
+  res.json(user);
 });
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
