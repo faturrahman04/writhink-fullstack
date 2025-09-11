@@ -66,8 +66,10 @@ function authenticate(req, res, next) {
 }
 
 app.get('/todos', authenticate, (req, res) => {
-  const user = req;
-  res.json(user);
+  const idUser = 3
+  db.query('SELECT * FROM `todos` WHERE `user_id` = ?', [idUser], async (err, result) => {
+    res.json({result});
+  })
 });
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
