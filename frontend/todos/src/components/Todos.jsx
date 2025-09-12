@@ -1,33 +1,70 @@
-import * as Icon from "react-feather"
-import { useState } from "react";
+import * as Icon from "react-feather";
+import { useState, useEffect } from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
-const todoList = [
-  {
-    id: 1,
-    task: 'Belajar Frontend Developer',
-    time: '2 Hari lalu',
-    isDone: true
-  },
-  {
-    id: 2,
-    task: 'Lari Pagi',
-    time: '3 Hari lalu',
-    isDone: false
-  }
-]
+dayjs.extend(relativeTime)
 
 const Todos = () => {
-  const [todos, setTodos] = useState(todoList);
+  const [todos, setTodos] = useState([]);
+  // const [loading, setLoading] = useState(false);
+
+    async function getTodosData() {
+      try {
+        // setLoading(true)
+        const data = await fetch('http://localhost:3000/todos', {
+          method: 'GET',
+          headers : {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        const result = await data.json();
+        const userTodos = result.result
+        setTodos(userTodos)
+      } catch (err) {
+        if (err) throw err;
+      } finally {
+        // setLoading(false);
+      }
+    }
+
+    useEffect(() => {
+      getTodosData();
+    }, [])
 
   function handleTrash(){
     return confirm('Yakin ingin menghapus tugas ini?');
   }
 
-  function handleTodos(i) {
+  async function handleTodos(i) {
+    const todo = todos.find(t => t.id === i)
+    try {
+      const data = await fetch('http://localhost:3000/todos', {
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          id_task: todo.id,
+          is_done: !todo.is_done ? 1 : 0
+        })
+      });
+
+      const response = await data.json();
+      console.log(response);
+
+
+    } catch (err) {
+      if (err) throw err;
+    }
+
     setTodos(todos.map(data => {
-      return data.id === i ? {...data, isDone: !data.isDone} : data
+      return data.id === i ? {...data, is_done: !data.is_done} : data
     }));
   }
+
+          console.log(todos)
 
   return (
     <div className="flex flex-col gap-4">
@@ -37,9 +74,9 @@ const Todos = () => {
             <button onClick={handleTrash} className="p-2 hover:bg-red-500/10 duration-100 rounded-md cursor-pointer">
               <Icon.Trash2 className="w-5 h-5" />
             </button>
-            <p className={`font-semibold mt-1 text-black text-lg 2xl:text-xl ${todo.isDone ? 'line-through' : 'no-underline'}`}>{todo.task}</p>
+            <p className={`font-semibold mt-1 text-black text-lg 2xl:text-xl ${todo.is_done ? 'line-through' : 'no-underline'}`}>{todo.task}</p>
           </div>
-          <p>{todo.time}</p>
+          <p>{dayjs(todo.created_at).fromNow()}</p>
         </div>
       ))}
     </div>
