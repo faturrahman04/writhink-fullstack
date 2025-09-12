@@ -58,18 +58,31 @@ function authenticate(req, res, next) {
   if (!header) return res.status(403).json({error: "No Token"});
 
   const token = header.split(" ")[1];
-  jwt.verify(token, JWT_KEY, (err, decoded) => {
+  jwt.verify(token, JWT_KEY, (err, user) => {
     if (err) return res.status(403).json({ error: "Invalid Token"});
-    req.user = decoded;
+    req.user = user;
     next();
   });
 }
 
 app.get('/todos', authenticate, (req, res) => {
-  const idUser = 3
+  const idUser = req.user.id
   db.query('SELECT * FROM `todos` WHERE `user_id` = ?', [idUser], async (err, result) => {
     res.json({result});
-  })
+  });
 });
+
+app.patch('/todos', authenticate, (req, res) => {
+  const idUser = req.user.id
+  const { id_task, is_done } = req.body;
+  db.query('UPDATE `todos` SET `is_done` = ? WHERE `id` = ? AND `user_id` = ?', [is_done, id_task, idUser], async (err, result) => {
+    res.json({result});
+  });
+});
+
+app.get('/todos/add', (req, res) => {
+  const idUser = req.user.id
+  db.query('INSERT ')
+})
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
