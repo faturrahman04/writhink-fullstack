@@ -24,7 +24,7 @@ const Login = () => {
         placeholder="Masukkan Password"
         value={formDataLogin.password}
         onChange={(e) => setFormDataLogin({...formDataLogin, password: e.target.value})} />
-      <Button variant={`bg-blue-500 text-white mt-4`}>Confirm</Button>
+      <Button variant={`bg-blue-500 text-white mt-4 hover:bg-blue-600 active:bg-blue-400`}>Confirm</Button>
     </>
   )
 }
