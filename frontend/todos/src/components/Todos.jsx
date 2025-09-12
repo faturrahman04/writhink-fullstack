@@ -53,8 +53,6 @@ const Todos = () => {
 
       const response = await data.json();
       console.log(response);
-
-
     } catch (err) {
       if (err) throw err;
     }
@@ -63,8 +61,6 @@ const Todos = () => {
       return data.id === i ? {...data, is_done: !data.is_done} : data
     }));
   }
-
-          console.log(todos)
 
   return (
     <div className="flex flex-col gap-4">
