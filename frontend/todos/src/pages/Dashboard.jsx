@@ -6,10 +6,10 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      <Sidebar />
-      <DashboardContent />
 
-      <ModalForm />
+        <Sidebar />
+        <DashboardContent />
+        <ModalForm />
 
     </div>
   )
