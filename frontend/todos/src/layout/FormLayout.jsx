@@ -55,7 +55,7 @@ const FormLayout = ({formTitle, formHandle}) => {
   return (
     <div className="flex flex-col justify-center items-center max-h-screen min-h-screen">
       <h1 className="text-3xl font-semibold text-blue-500">{formTitle}</h1>
-      <form onSubmit={formHandle} className="flex flex-col w-[80%]">
+      <form onSubmit={formHandle} className="flex flex-col w-[80%] sm:w-[50%] lg:w-[40%] xl:w-96">
         <Outlet context={{formDataRegistrasi, setFormDataRegistrasi, formDataLogin, setFormDataLogin}} />
       </form>
       {location.pathname === '/login' ? <p>Belum memiliki akun? <Link className="text-blue-500" to="/registrasi">Daftar</Link></p> : <p>Sudah memiliki akun? <Link className="text-blue-500" to="/login">Login</Link></p>}
