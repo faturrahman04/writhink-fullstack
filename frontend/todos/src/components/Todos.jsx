@@ -30,7 +30,7 @@ const Todos = () => {
 
     useEffect(() => {
       getTodosData();
-    }, [])
+    }, [todos])
 
   function handleTrash(){
     return confirm('Yakin ingin menghapus tugas ini?');
@@ -63,7 +63,7 @@ const Todos = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 overflow-auto">
       {todos.map((todo) => (
         <div onClick={() => handleTodos(todo.id)} key={todo.id} className="flex justify-between items-center px-6 2xl:px-8 py-6 2xl:py-6 bg-white shadow-md hover:shadow-blue-400 rounded-md shadow-slate-200 duration-75 hover:border-2 hover:border-blue-400 cursor-default">
           <div className="flex gap-4 text-slate-400">
