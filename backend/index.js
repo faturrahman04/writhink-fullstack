@@ -80,9 +80,13 @@ app.patch('/todos', authenticate, (req, res) => {
   });
 });
 
-app.get('/todos/add', (req, res) => {
+
+app.post('/todos/add', authenticate, (req, res) => {
   const idUser = req.user.id
-  db.query('INSERT ')
+  const { task } = req.body;
+  db.query('INSERT INTO `todos`(`user_id`, `task`, `is_done`) VALUES (?, ?, ?)', [idUser, task, false], (err, result) => {
+    res.json({result});
+  }); 
 })
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
