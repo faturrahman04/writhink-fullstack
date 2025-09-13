@@ -30,11 +30,11 @@ const Sidebar = () => {
   }, [setMenuClosed])
 
   return (
-    <div ref={menuRef} className={`font-openSans bg-white lg:sticky lg:w-[22rem] 2xl:w-[32rem] min-h-screen duration-100 lg:translate-x-0 shadow-xs shadow-slate-300 border-r border-slate-200 z-10 ${isMenuOnClick ? 'translate-x-0 w-[70%]' : '-translate-x-150 absolute w-0'}`}>
+    <div ref={menuRef} className={`font-openSans bg-white lg:sticky left-o top-0 lg:w-[22rem] 2xl:w-[32rem] h-screen duration-100 lg:translate-x-0 shadow-xs shadow-slate-300 border-r border-slate-200 z-10 ${isMenuOnClick ? 'translate-x-0 w-[70%]' : '-translate-x-150 absolute w-0'}`}>
       <h1 className="text-center py-8 text-3xl 2xl:text-4xl font-bold tracking-wide">Writhink</h1>
 
-      <div className="absolute top-28 bottom-4 w-full px-5">
-        <div className="flex flex-col justify-between h-full">
+      <div className="absolute h-screen top-0 w-full px-5 pb-4 pt-28">
+        <aside className="flex flex-col justify-between h-full">
         <NavListDashboard />
       
         <div className="">
@@ -45,7 +45,7 @@ const Sidebar = () => {
             </p>
           </div>
         </div>
-      </div>
+      </aside>
 
       </div>
       
