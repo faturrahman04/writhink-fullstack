@@ -1,10 +1,11 @@
-const InputForm = ({htmlFor, type, name, id, labelText, placeholder, value, onChange}) => {
+const InputForm = ({ref, htmlFor, type, name, id, labelText, placeholder, value, onChange}) => {
   return (
     <>
       <label className="mt-4" htmlFor={htmlFor}>
         {labelText}
       </label>
       <input className={`mt-1 border border-slate-500/50 px-3 py-1 rounded-md`} 
+      ref={ref}
       type={type} 
       name={name} 
       id={id} 
