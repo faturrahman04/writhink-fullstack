@@ -95,7 +95,7 @@ app.delete('/todos/delete/:id', authenticate, (req,res) => {
 
   db.query('DELETE FROM `todos` WHERE `id` = ? AND `user_id` = ?', [idTask, idUser], (err, result) => {
     res.json({result})
-  })
-})
+  });
+});
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
