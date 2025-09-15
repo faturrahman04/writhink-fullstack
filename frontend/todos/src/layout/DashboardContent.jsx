@@ -25,7 +25,7 @@ const DashboardContent = () => {
             <Button onModalClick={handleModal} variant={`bg-blue-500 text-slate-50 hover:bg-blue-400 py-2`}>Tambah Tugas</Button>
           </div>
 
-            <InputSearch />
+            {/* <InputSearch /> */}
 
         </div>
 
