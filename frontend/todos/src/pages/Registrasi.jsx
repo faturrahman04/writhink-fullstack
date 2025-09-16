@@ -36,7 +36,7 @@ const Registrasi = () => {
       type="password"
       value={formDataRegistrasi.confirmPassword}
       onChange={(e) => setFormDataRegistrasi({...formDataRegistrasi, confirmPassword: e.target.value})} />
-      <Button children="Daftar" variant="text-white bg-blue-500 mt-4" />
+      <Button children="Daftar" variant="text-white bg-blue-500 mt-4 active:bg-blue-400" />
     </>
   )
 }
