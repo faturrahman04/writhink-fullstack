@@ -12,7 +12,7 @@ const FormLayout = ({formTitle, formHandle}) => {
 
     async function handleSubmitRegistrasi(e) {
       e.preventDefault();
-      const data = await fetch('http://localhost:3000/register', {
+      const data = await fetch('https://writhinkapi.vercel.app/register', {
         method: 'POST',
         headers: {
           "Content-Type" : "application/json"
@@ -25,7 +25,7 @@ const FormLayout = ({formTitle, formHandle}) => {
 
     async function handleSubmitLogin(e) {
       e.preventDefault();
-      const data = await fetch('http://localhost:3000/login', {
+      const data = await fetch('https://writhinkapi.vercel.app/login', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
