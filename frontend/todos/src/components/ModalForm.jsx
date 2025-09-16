@@ -13,7 +13,7 @@ const ModalForm = () => {
   async function handleSubmitModal(e) {
     e.preventDefault();
 
-    const data = await fetch('http://localhost:3000/todos/add', {
+    const data = await fetch('https://writhinkapi.vercel.app/todos/add', {
       method: 'POST',
       headers: {
         "Content-Type" : "application/json",
