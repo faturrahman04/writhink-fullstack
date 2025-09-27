@@ -22,8 +22,8 @@ const db = mysql.createConnection({
   port: process.env.DB_PORT,
   charset: 'utf8mb4',
   ssl : {
-    ca: process.env.DB_SSL_CA.replace(/\\n/gm, '\n'), // ganti saat dev
-    rejectUnauthorized: true
+    // ca: process.env.DB_SSL_CA.replace(/\\n/gm, '\n'), // ganti saat dev
+    rejectUnauthorized: false //ganti ke true suatu saat
   }
 });
 
