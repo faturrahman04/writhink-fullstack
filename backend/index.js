@@ -20,7 +20,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   ssl : {
-    ca: process.env.DB_SSL_CA.replace(/\\n/gm, '\n'),
+    ca: Buffer.from(process.env.DB_SSL_CA, 'base64'),
     rejectUnauthorized: true
   }
 });
