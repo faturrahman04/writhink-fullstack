@@ -22,7 +22,7 @@ const db = mysql.createConnection({
   port: process.env.DB_PORT,
   charset: 'utf8mb4',
   ssl : {
-    ca: fs.readFileSync(join(process.cwd(), 'cert', 'ca.pem')), // ganti saat dev
+    ca: process.env.DB_SSL_CA, // ganti saat dev
     rejectUnauthorized: true
   }
 });
