@@ -12,7 +12,7 @@ const Todos = () => {
     async function getTodosData() {
       try {
         // setLoading(true)
-        const data = await fetch('https://writhinkapi.vercel.app/todos', {
+        const data = await fetch('/api/todos', {
           method: 'GET',
           headers : {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -35,7 +35,7 @@ const Todos = () => {
   async function handleTodos(i) {
     const todo = todos.find(t => t.id === i)
     try {
-      const data = await fetch('https://writhinkapi.vercel.app/todos', {
+      const data = await fetch('/api/todos', {
         method: 'PATCH',
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +59,7 @@ const Todos = () => {
   }
 
   async function handleTrash(id) {
-    const data = await fetch(`https://writhinkapi.vercel.app/todos/delete/${id}`, {
+    const data = await fetch(`/api/todos/delete/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
