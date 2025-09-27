@@ -20,7 +20,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   ssl : {
-    ca: Buffer.from(process.env.DB_SSL_CA), // ganti saat dev
+    ca: fs.readFileSync(__dirname + '/cert/ca.pem'), // ganti saat dev
     rejectUnauthorized: true
   }
 });
