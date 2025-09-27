@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const cors = require('cors'); 
 const dotenv = require('dotenv');
 const fs = require('fs');
+const { join } = require('path')
 
 const app = express();
 const port = 3000;
@@ -20,7 +21,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   ssl : {
-    ca: fs.readFileSync(__dirname + '/cert/ca.pem'), // ganti saat dev
+    ca: fs.readFileSync(join(process.cwd(), 'cert', 'ca.pem')), // ganti saat dev
     rejectUnauthorized: true
   }
 });
