@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cors = require('cors'); 
 const dotenv = require('dotenv');
+const fs = require('fs');
 
 const app = express();
 const port = 3000;
@@ -16,8 +17,14 @@ const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  ssl : {
+    ca: process.env.DB_SSL_CA.replace(/\\n/gm, '\n'),
+    rejectUnauthorized: true
+  }
 });
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -46,7 +53,7 @@ app.post('/login', async (req, res) => {
     const user = result[0];
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) return res.status(401).json({success: false, message: 'Username atau password salah!'});
-
+    
     const access_token = jwt.sign({id: user.id, username: user.username}, JWT_KEY, {expiresIn: '1h'});
     return res.json({success: true, token: access_token });
   });
