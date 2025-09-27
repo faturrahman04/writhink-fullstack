@@ -22,7 +22,7 @@ const db = mysql.createConnection({
   port: process.env.DB_PORT,
   charset: 'utf8mb4',
   ssl : {
-    ca: process.env.DB_SSL_CA, // ganti saat dev
+    ca: process.env.DB_SSL_CA.replace(/\\n/gm, '\n'), // ganti saat dev
     rejectUnauthorized: true
   }
 });
@@ -40,12 +40,11 @@ app.post('/register', async (req, res) => {
   db.query("INSERT INTO users (username, password) VALUES (?, ?)", 
     [username, hash], 
     (err) => {
-      if (err) return res.status(500).json({error: err});
+      if (err) return res.status(500).json({error: err.message});
       res.json({message: 'User berhasil didaftarkan'});
     }
   );
 });
-
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
